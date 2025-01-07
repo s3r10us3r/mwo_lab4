@@ -1,0 +1,4 @@
+- **Jako użytkownik**, chcę szybko wybierać rodzaj biletu, aby zminimalizować czas spędzony przy biletomacie.
+- **Jako użytkownik**, chcę mieć możliwość wyboru języka, aby móc korzystać z biletomatu bez względu na znajomość języka lokalnego.
+- **Jako użytkownik**, chcę sprawdzić poprawnośc transakcji przed jej finalizacją, aby uniknać pomyłek.
+- **Jako użytkownik**, chcę otrzymać potwierdzenie zakupu (np. wydruk biletu lub elektroniczny bilet), aby móc korzystać z transportu zgodnie z przepisami.
