@@ -8,3 +8,14 @@ czytnik gotówki, NFC), aby obsługiwać różnorodne transakcje.
 - **Jako biletomat**, chcę wydawać resztę w gotówce, jeśli użytkownik zapłaci
 nadmiarowo, aby transakcja była zgodna z oczekiwaniami.
 
+## DIAGRAMY PRZYPADKÓW UŻYCIA
+### REALIZACJA PŁATNOŚCI
+```MERMAID
+flowchart TD
+    Biletomat["Biletomat"] --> InicjowaniePłatności(["Inicjowanie płatności"])
+    InicjowaniePłatności --> PrzesłanieDanychTranzakcji(["Przesłanie danych tranzakcji"])
+    PrzesłanieDanychTranzakcji --> OczekiwanienaOpdowiedz(["Oczekiwanie na Opdowiedz"])
+    OczekiwanienaOpdowiedz --> Powtwierdzenie(["Potwierdzenie płatności"])
+    OczekiwanienaOpdowiedz -- include --> ObsługaBłedóPłatności(["Obsługa błędów płatności"])
+    InicjowaniePłatności -- include --> Anulownie(["Anulownie tranzakcji"])
+    Obsługa(["Obsługa alternatywnych metod tranzakcji"]) -- extend --> PrzesłanieDanychTranzakcji
