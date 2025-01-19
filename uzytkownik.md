@@ -10,3 +10,17 @@ jak dokonać zakupu krok po kroku.
 - **Jako użytkownik**, chcę widzieć czas pozostały na decyzję (np. wyświetlany
 licznik czasu), aby móc szybko podjąć działanie.
 
+## DIAGRAMY PRZYPADKÓW UŻYCIA
+
+```MERMAID
+### SZYBKI WYBÓR RODZAJU BILETU
+flowchart TD
+    Uzytkownik["Użytkownik"] --> PodchodziDoBiletomatu(["Rozpoczęcie interakcji"]) 
+    PodchodziDoBiletomatu --> WybieraKategorieBiletu(["Wybór kategorii"])
+    WybieraKategorieBiletu --> WybieraBilet(["Wybiera bilet"])
+    WybieraBilet --> PotwierdzaBilet(["Potwierdza wybóru"])
+    WybieraKategorieBiletu -- include --> Anulowanie(["Anulowanie"])
+    WybieraBilet -- include --> Anulowanie & SprawdzenieBiletów(["Sprawdzenie biletów"])
+    PotwierdzaBilet -- include --> Anulowanie
+    Wyświetleniepodpowiedzi(["Wyświetlenie podpowiedzi"]) -- extend --> WybieraKategorieBiletu & WybieraBilet
+    System["System"] --> WyświetleniePodsumowania(["Wyświetlenie podsumowania"]) & Wyświetleniepodpowiedzi & SprawdzenieBiletów
