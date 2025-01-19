@@ -12,7 +12,6 @@ licznik czasu), aby móc szybko podjąć działanie.
 
 ## DIAGRAMY PRZYPADKÓW UŻYCIA
 
-### SZYBKI WYBÓR RODZAJU BILETU
 ```mermaid
 flowchart TD
     Uzytkownik["Użytkownik"] --> PodchodziDoBiletomatu(["Rozpoczęcie interakcji"]) 
@@ -24,11 +23,8 @@ flowchart TD
     PotwierdzaBilet -- include --> Anulowanie
     Wyświetleniepodpowiedzi(["Wyświetlenie podpowiedzi"]) -- extend --> WybieraKategorieBiletu & WybieraBilet
     System["System"] --> WyświetleniePodsumowania(["Wyświetlenie podsumowania"]) & Wyświetleniepodpowiedzi & SprawdzenieBiletów
-```
-### PŁATNOŚĆ ZA BILET
-```mermaid
-flowchart TD
-    A[Użytkownik] --- B@{shape: stadium, label: "Wybór metody płatności"}
+
+    Uzytkownik --- B@{shape: stadium, label: "Wybór metody płatności"}
     B --> C@{shape: stadium, label: "Weryfikacja metody płatności"}
     C --> D@{shape: stadium, label: "Realizacja płatności"}
     D --> E@{shape: stadium, label: "Potwierdzenie transakcji"}
