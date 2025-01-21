@@ -12,6 +12,7 @@ licznik czasu), aby móc szybko podjąć działanie.
 
 ## DIAGRAMY PRZYPADKÓW UŻYCIA
 
+
 ### SZYBKI WYBÓR RODZAJU BILETU
 ```mermaid
 flowchart TD
