@@ -40,6 +40,26 @@ flowchart TD
     C -.extends.-> G@{shape: stadium, label: "Obsługa błędów płatności"}
 ```
 
+### Sprawdzenie poprawności transakcji
+```mermaid
+flowchart TD
+   A[Użytkownik] --> B@{shape: stadium, label: "Sprawdzenie poprawności transakcji"}
+   B --> E@{shape: stadium, label: "Wybór biletu i płatności"}
+   E --> C@{shape: stadium, label: "Wyświetlenie podsumowania"}
+   C --> D@{shape: stadium, label: "Potwierdzenie lub cofnięcie"}
+   
+   
+
+   F@{shape: stadium, label: "Anulowanie transakcji"}
+   G@{shape: stadium, label: "Ostrzeżenie o błędzie"}
+
+   G -.Extends.-> B
+   B -.Includes.-> F
+   C -.Includes.-> F
+   E -.Includes.-> F
+   D -.Includes.-> F
+```
+
 ### Wspólny diagram
 ```mermaid
 flowchart TD
@@ -62,4 +82,22 @@ flowchart TD
     C -.includes.-> F
     D -.includes.-> F
     C -.extends.-> G@{shape: stadium, label: "Obsługa błędów płatności"}
+
+    
+   Uzytkownik --> B1@{shape: stadium, label: "Sprawdzenie poprawności transakcji"}
+   B1 --> E1@{shape: stadium, label: "Wybór biletu i płatności"}
+   E1 --> C1@{shape: stadium, label: "Wyświetlenie podsumowania"}
+   C1 --> D1@{shape: stadium, label: "Potwierdzenie lub cofnięcie"}
+   
+   
+
+   F1@{shape: stadium, label: "Anulowanie transakcji"}
+   G1@{shape: stadium, label: "Ostrzeżenie o błędzie"}
+
+   G1 -.Extends.-> B1
+   B1 -.Includes.-> F1
+   C1 -.Includes.-> F1
+   E1 -.Includes.-> F1
+   D1 -.Includes.-> F1
+
 ```
