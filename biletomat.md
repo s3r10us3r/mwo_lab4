@@ -10,18 +10,19 @@ czytnik gotówki, NFC), aby obsługiwać różnorodne transakcje.
 nadmiarowo, aby transakcja była zgodna z oczekiwaniami.
 
 
-# Przypadki użycia
+## DIAGRAMY PRZYPADKÓW UŻYCIA
+### WYŚWIETLENIE DOSTĘPNYCH BILETÓW
 ```mermaid
 flowchart TD
     A[Biletomat] --> B@{shape: stadium, label: "Wyświetlenie dostępnych biletów"}
-    B --> C@{shape: stadium, label: "Pobranie listy biletów"}
+    B --> H@{shape: stadium, label: "Uruchomienie ekranu powitalnego"}
+    H --> C@{shape: stadium, label: "Pobranie listy biletów"}
     C --> D@{shape: stadium, label: "Wyświetlenie biletów"}
     D --> E@{shape: stadium, label: "Oczekiwanie na wybór użytkownika"}
-    E -.includes.-> F@{shape: stadium, label: "Pobranie listy dostępnych biletów"}
-    E -.extends.-> G@{shape: stadium, label: "Ostrzeżenie o braku danych"}
+    C -.includes.-> F@{shape: stadium, label: "Pobranie listy dostępnych biletów"}
+    C -.extends.-> G@{shape: stadium, label: "Ostrzeżenie o braku danych"}
 ```
 
-## DIAGRAMY PRZYPADKÓW UŻYCIA
 ### REALIZACJA PŁATNOŚCI
 ```mermaid
 flowchart TD
@@ -37,15 +38,18 @@ flowchart TD
 ## Wspólny diagram przypadków użycia
 ```mermaid
 flowchart TD
-    Biletomat["Biletomat"] --> InicjowaniePłatności(["Inicjowanie płatności"]) & WyswietlenieBiletow(["Wyświetlenie dostępnych biletów"])
-    InicjowaniePłatności --> PrzesłanieDanychTransakcji(["Przesłanie danych transakcji"])
-    PrzesłanieDanychTransakcji --> OczekiwanieNaOdpowiedz(["Oczekiwanie na odpowiedź"])
-    OczekiwanieNaOdpowiedz --> Potwierdzenie(["Potwierdzenie płatności"])
-    OczekiwanieNaOdpowiedz -- include --> ObslugaBledowPlatnosci(["Obsługa błędów płatności"])
-    InicjowaniePłatności -- include --> Anulowanie(["Anulowanie transakcji"])
-    ObslugaAlternatywnychMetodTransakcji(["Obsługa alternatywnych metod transakcji"]) -- extend --> PrzesłanieDanychTransakcji
-    WyswietlenieBiletow --> PobranieListyBiletow(["Pobranie listy biletów"])
-    PobranieListyBiletow --> WyświetlenieBiletów(["Wyświetlenie biletów"])
-    WyświetlenieBiletów --> OczekiwanieNaWybor(["Oczekiwanie na wybór użytkownika"])
-    OczekiwanieNaWybor -- include --> PobranieDostepnychBiletow(["Pobranie listy dostępnych biletów"])
-    OczekiwanieNaWybor -- expend --> Ostrzeżenie(["Ostrzeżenie o braku danych"])
+    A[Biletomat] --> B@{shape: stadium, label: "Wyświetlenie dostępnych biletów"}
+    B --> H@{shape: stadium, label: "Uruchomienie ekranu powitalnego"}
+    H --> C@{shape: stadium, label: "Pobranie listy biletów"}
+    C --> D@{shape: stadium, label: "Wyświetlenie biletów"}
+    D --> E@{shape: stadium, label: "Oczekiwanie na wybór użytkownika"}
+    C -.includes.-> F@{shape: stadium, label: "Pobranie listy dostępnych biletów"}
+    C -.extends.-> G@{shape: stadium, label: "Ostrzeżenie o braku danych"}
+
+    A --> InicjowaniePłatności(["Inicjowanie płatności"])
+    InicjowaniePłatności --> PrzesłanieDanychTranzakcji(["Przesłanie danych tranzakcji"])
+    PrzesłanieDanychTranzakcji --> OczekiwanienaOpdowiedz(["Oczekiwanie na Opdowiedz"])
+    OczekiwanienaOpdowiedz --> Powtwierdzenie(["Potwierdzenie płatności"])
+    OczekiwanienaOpdowiedz -- include --> ObsługaBłedóPłatności(["Obsługa błędów płatności"])
+    InicjowaniePłatności -- include --> Anulownie(["Anulownie tranzakcji"])
+    Obsługa(["Obsługa alternatywnych metod tranzakcji"]) -- extend --> PrzesłanieDanychTranzakcji
