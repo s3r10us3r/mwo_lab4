@@ -23,7 +23,7 @@ flowchart TD
 
 ## DIAGRAMY PRZYPADKÓW UŻYCIA
 ### REALIZACJA PŁATNOŚCI
-```MERMAID
+```mermaid
 flowchart TD
     Biletomat["Biletomat"] --> InicjowaniePłatności(["Inicjowanie płatności"])
     InicjowaniePłatności --> PrzesłanieDanychTranzakcji(["Przesłanie danych tranzakcji"])
@@ -32,10 +32,10 @@ flowchart TD
     OczekiwanienaOpdowiedz -- include --> ObsługaBłedóPłatności(["Obsługa błędów płatności"])
     InicjowaniePłatności -- include --> Anulownie(["Anulownie tranzakcji"])
     Obsługa(["Obsługa alternatywnych metod tranzakcji"]) -- extend --> PrzesłanieDanychTranzakcji
+```
 
-
-##Wspólny diagram przypadków użycia
-```MERMAID
+## Wspólny diagram przypadków użycia
+```mermaid
 flowchart TD
     Biletomat["Biletomat"] --> InicjowaniePłatności(["Inicjowanie płatności"]) & WyswietlenieBiletow(["Wyświetlenie dostępnych biletów"])
     InicjowaniePłatności --> PrzesłanieDanychTransakcji(["Przesłanie danych transakcji"])
