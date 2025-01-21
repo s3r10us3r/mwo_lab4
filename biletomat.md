@@ -32,7 +32,7 @@ flowchart TD
     OczekiwanienaOpdowiedz --> Powtwierdzenie(["Potwierdzenie płatności"])
     OczekiwanienaOpdowiedz -- include --> ObsługaBłedóPłatności(["Obsługa błędów płatności"])
     InicjowaniePłatności -- include --> Anulownie(["Anulownie tranzakcji"])
-    Obsługa(["Obsługa alternatywnych metod tranzakcji"]) -- extend --> PrzesłanieDanychTranzakcji
+    Obsługa(["Obsługa alternatywnych metod tranzakcji"]) -- extend --> InicjowaniePłatności
 ```
 
 ## Wspólny diagram przypadków użycia
@@ -46,10 +46,11 @@ flowchart TD
     C -.includes.-> F@{shape: stadium, label: "Pobranie listy dostępnych biletów"}
     C -.extends.-> G@{shape: stadium, label: "Ostrzeżenie o braku danych"}
 
-    A --> InicjowaniePłatności(["Inicjowanie płatności"])
-    InicjowaniePłatności --> PrzesłanieDanychTranzakcji(["Przesłanie danych tranzakcji"])
-    PrzesłanieDanychTranzakcji --> OczekiwanienaOpdowiedz(["Oczekiwanie na Opdowiedz"])
-    OczekiwanienaOpdowiedz --> Powtwierdzenie(["Potwierdzenie płatności"])
-    OczekiwanienaOpdowiedz -- include --> ObsługaBłedóPłatności(["Obsługa błędów płatności"])
-    InicjowaniePłatności -- include --> Anulownie(["Anulownie tranzakcji"])
-    Obsługa(["Obsługa alternatywnych metod tranzakcji"]) -- extend --> PrzesłanieDanychTranzakcji
+    A --> InicjowaniePłatności["Inicjowanie płatności"]
+    InicjowaniePłatności --> PrzesłanieDanychTranzakcji["Przesłanie danych tranzakcji"]
+    PrzesłanieDanychTranzakcji --> OczekiwanienaOpdowiedz["Oczekiwanie na Opdowiedz"]
+    OczekiwanienaOpdowiedz --> Powtwierdzenie["Potwierdzenie płatności"]
+    OczekiwanienaOpdowiedz -- include --> ObsługaBłedóPłatności["Obsługa błędów płatności"]
+    InicjowaniePłatności -- include --> Anulownie["Anulownie tranzakcji"]
+    Obsługa["Obsługa alternatywnych metod tranzakcji"] -- extend --> InicjowaniePłatności
+```
