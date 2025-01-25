@@ -74,5 +74,5 @@ flowchart TD
     B -.includes.-> F
     C -.includes.-> F
     D -.includes.-> F
-    C -.extends.-> G@{shape: stadium, label: "Obsługa błędów płatności"}git 
+    C -.extends.-> G@{shape: stadium, label: "Obsługa błędów płatności"}
 ```
