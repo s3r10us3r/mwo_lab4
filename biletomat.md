@@ -35,6 +35,16 @@ flowchart TD
     Obsługa(["Obsługa alternatywnych metod tranzakcji"]) -- extend --> InicjowaniePłatności
 ```
 
+### OBSŁUGA WYBORU JĘZYKA
+```mermaid
+flowchart TD
+   A1[Biletomat] --> B1@{shape: stadium, label: "Obsługa wyboru języka"}
+   B1 -.Includes.-> C1@{shape: stadium, label: "Wyswietlenie opcji językowych"}
+   C1 --> D1@{shape: stadium, label: "Rejestracja wyboru języka"}
+   D1 --> E1@{shape: stadium, label: "Dostosowanie Interfejsu"}
+   H1@{shape: stadium, label: "Powrót do języka domyślnego"} -.Extends.-> D1 
+```
+
 ## Wspólny diagram przypadków użycia
 ```mermaid
 flowchart TD
@@ -46,11 +56,19 @@ flowchart TD
     C -.includes.-> F@{shape: stadium, label: "Pobranie listy dostępnych biletów"}
     C -.extends.-> G@{shape: stadium, label: "Ostrzeżenie o braku danych"}
 
-    A --> InicjowaniePłatności["Inicjowanie płatności"]
-    InicjowaniePłatności --> PrzesłanieDanychTranzakcji["Przesłanie danych tranzakcji"]
-    PrzesłanieDanychTranzakcji --> OczekiwanienaOpdowiedz["Oczekiwanie na Opdowiedz"]
-    OczekiwanienaOpdowiedz --> Powtwierdzenie["Potwierdzenie płatności"]
-    OczekiwanienaOpdowiedz -- include --> ObsługaBłedóPłatności["Obsługa błędów płatności"]
-    InicjowaniePłatności -- include --> Anulownie["Anulownie tranzakcji"]
-    Obsługa["Obsługa alternatywnych metod tranzakcji"] -- extend --> InicjowaniePłatności
+
+    A --> InicjowaniePłatności(["Inicjowanie płatności"])
+    InicjowaniePłatności --> PrzesłanieDanychTranzakcji(["Przesłanie danych tranzakcji"])
+    PrzesłanieDanychTranzakcji --> OczekiwanienaOpdowiedz(["Oczekiwanie na Opdowiedz"])
+    OczekiwanienaOpdowiedz --> Powtwierdzenie(["Potwierdzenie płatności"])
+    OczekiwanienaOpdowiedz -- include --> ObsługaBłedóPłatności(["Obsługa błędów płatności"])
+    InicjowaniePłatności -- include --> Anulownie(["Anulownie tranzakcji"])
+    Obsługa(["Obsługa alternatywnych metod tranzakcji"]) -- extend --> PrzesłanieDanychTranzakcji
+
+   A --> B1@{shape: stadium, label: "Obsługa wyboru języka"}
+   B1 -.Includes.-> C1@{shape: stadium, label: "Wyswietlenie opcji językowych"}
+   C1 --> D1@{shape: stadium, label: "Rejestracja wyboru języka"}
+   D1 --> E1@{shape: stadium, label: "Dostosowanie Interfejsu"}
+   H1@{shape: stadium, label: "Powrót do języka domyślnego"} -.Extends.-> D1 
 ```
+
