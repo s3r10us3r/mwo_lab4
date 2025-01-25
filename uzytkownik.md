@@ -12,18 +12,21 @@ licznik czasu), aby móc szybko podjąć działanie.
 
 ## DIAGRAMY PRZYPADKÓW UŻYCIA
 
-### Szybki wybór rodzaju biletu
+
+### SZYBKI WYBÓR RODZAJU BILETU
 ```mermaid
 flowchart TD
-    Uzytkownik["Użytkownik"] --> PodchodziDoBiletomatu(["Rozpoczęcie interakcji"]) 
+    Uzytkownik["Użytkownik"] --> PodchodziDoBiletomatu(["Rozpoczęcie interakcji"])
     PodchodziDoBiletomatu --> WybieraKategorieBiletu(["Wybór kategorii"])
     WybieraKategorieBiletu --> WybieraBilet(["Wybiera bilet"])
-    WybieraBilet --> PotwierdzaBilet(["Potwierdza wybóru"])
+    WybieraBilet --> WyświetleniePodsumowania(["Wyświetlenie podsumowania"])
     WybieraKategorieBiletu -- include --> Anulowanie(["Anulowanie"])
     WybieraBilet -- include --> Anulowanie & SprawdzenieBiletów(["Sprawdzenie biletów"])
-    PotwierdzaBilet -- include --> Anulowanie
+    PotwierdzaBilet(["Potwierdza wybóru"]) -- include --> Anulowanie
     Wyświetleniepodpowiedzi(["Wyświetlenie podpowiedzi"]) -- extend --> WybieraKategorieBiletu & WybieraBilet
-    System["System"] --> WyświetleniePodsumowania(["Wyświetlenie podsumowania"]) & Wyświetleniepodpowiedzi & SprawdzenieBiletów
+    WyświetleniePodsumowania --> PotwierdzaBilet
+    PodchodziDoBiletomatu -- include --> Anulowanie
+    WyświetleniePodsumowania -- include --> Anulowanie
 ```
 
 ### Płatność za bilet
@@ -43,21 +46,31 @@ flowchart TD
 ### Wspólny diagram
 ```mermaid
 flowchart TD
-    Uzytkownik["Użytkownik"] --> PodchodziDoBiletomatu(["Rozpoczęcie interakcji"]) 
+    %% --- SZYBKI WYBÓR RODZAJU BILETU ---
+    Uzytkownik["Użytkownik"] --> PodchodziDoBiletomatu(["Rozpoczęcie interakcji"])
     PodchodziDoBiletomatu --> WybieraKategorieBiletu(["Wybór kategorii"])
     WybieraKategorieBiletu --> WybieraBilet(["Wybiera bilet"])
-    WybieraBilet --> PotwierdzaBilet(["Potwierdza wybóru"])
+    WybieraBilet --> WyświetleniePodsumowania(["Wyświetlenie podsumowania"])
     WybieraKategorieBiletu -- include --> Anulowanie(["Anulowanie"])
     WybieraBilet -- include --> Anulowanie & SprawdzenieBiletów(["Sprawdzenie biletów"])
-    PotwierdzaBilet -- include --> Anulowanie
-    Wyświetleniepodpowiedzi(["Wyświetlenie podpowiedzi"]) -- extend --> WybieraKategorieBiletu & WybieraBilet
-    System["System"] --> WyświetleniePodsumowania(["Wyświetlenie podsumowania"]) & Wyświetleniepodpowiedzi & SprawdzenieBiletów
+    WyświetleniePodsumowania --> PotwierdzaBilet(["Potwierdza wybór"])
+    PodchodziDoBiletomatu -- include --> Anulowanie
+    WyświetleniePodsumowania -- include --> Anulowanie
 
-    Uzytkownik --- B@{shape: stadium, label: "Wybór metody płatności"}
+    %% Wyświetlanie dodatkowych podpowiedzi (zależne od rozszerzenia)
+    WyświetleniePodpowiedzi(["Wyświetlenie podpowiedzi"]) -- extend --> WybieraKategorieBiletu
+    WyświetleniePodpowiedzi -- extend --> WybieraBilet
+
+    PotwierdzaBilet -- include --> Anulowanie
+
+    %% --- PRZEJŚCIE DO PŁATNOŚCI ZA BILET ---
+    Uzytkownik --> B@{shape: stadium, label: "Wybór metody płatności"}
     B --> C@{shape: stadium, label: "Weryfikacja metody płatności"}
     C --> D@{shape: stadium, label: "Realizacja płatności"}
     D --> E@{shape: stadium, label: "Potwierdzenie transakcji"}
     F@{shape: stadium, label: "Anulowanie transakcji"}
+
+    %% Uwzględnienie Anulowania i Obsługi błędów w procesie płatności
     B -.includes.-> F
     C -.includes.-> F
     D -.includes.-> F
