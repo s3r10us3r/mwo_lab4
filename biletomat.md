@@ -44,10 +44,24 @@ flowchart TD
    D1 --> E1@{shape: stadium, label: "Dostosowanie Interfejsu"}
    H1@{shape: stadium, label: "Powrót do języka domyślnego"} -.Extends.-> D1 
 ```
-
+### WYŚWIETLENIE PODSUMOWANIA TRANZAKCJI
+```
+flowchart TD
+    Gromadzeniedanychotransakcj(["Gromadzenie danych o transakcji"]) -. include .-> WyświetleniePodsumowania(["Wyświetlenie podsumowania"])
+    WyświetleniePodsumowania --> OczekiwanienaDecyzję(["Oczekiwanie na decyzję użytkownika"])
+    Biletomat["Biletomat"] -->  Gromadzeniedanychotransakcj(["Gromadzenie danych o transakcji"])
+    Obsługaanulowania(["Obsługa anulowania"]) -. extend .->Gromadzeniedanychotransakcj & WyświetleniePodsumowania & OczekiwanienaDecyzję
+```
 ## Wspólny diagram przypadków użycia
 ```mermaid
 flowchart TD
+    Gromadzeniedanychotransakcj(["Gromadzenie danych o transakcji"]) -. include .-> WyświetleniePodsumowania(["Wyświetlenie podsumowania"])
+    WyświetleniePodsumowania --> OczekiwanienaDecyzję(["Oczekiwanie na decyzję użytkownika"])
+    A -->  Gromadzeniedanychotransakcj(["Gromadzenie danych o transakcji"])
+    Obsługaanulowania(["Obsługa anulowania"]) -. extend .->Gromadzeniedanychotransakcj & WyświetleniePodsumowania & OczekiwanienaDecyzję
+
+
+
     A[Biletomat] --> B@{shape: stadium, label: "Wyświetlenie dostępnych biletów"}
     B --> H@{shape: stadium, label: "Uruchomienie ekranu powitalnego"}
     H --> C@{shape: stadium, label: "Pobranie listy biletów"}
@@ -61,14 +75,52 @@ flowchart TD
     InicjowaniePłatności --> PrzesłanieDanychTranzakcji(["Przesłanie danych tranzakcji"])
     PrzesłanieDanychTranzakcji --> OczekiwanienaOpdowiedz(["Oczekiwanie na Opdowiedz"])
     OczekiwanienaOpdowiedz --> Powtwierdzenie(["Potwierdzenie płatności"])
-    OczekiwanienaOpdowiedz -- include --> ObsługaBłedóPłatności(["Obsługa błędów płatności"])
-    InicjowaniePłatności -- include --> Anulownie(["Anulownie tranzakcji"])
-    Obsługa(["Obsługa alternatywnych metod tranzakcji"]) -- extend --> PrzesłanieDanychTranzakcji
+    OczekiwanienaOpdowiedz -. include .-> ObsługaBłedóPłatności(["Obsługa błędów płatności"])
+    InicjowaniePłatności -. include .-> Anulownie(["Anulownie tranzakcji"])
+    Obsługa(["Obsługa alternatywnych metod tranzakcji"]) -. extend .-> PrzesłanieDanychTranzakcji
 
    A --> B1@{shape: stadium, label: "Obsługa wyboru języka"}
    B1 -.Includes.-> C1@{shape: stadium, label: "Wyswietlenie opcji językowych"}
    C1 --> D1@{shape: stadium, label: "Rejestracja wyboru języka"}
    D1 --> E1@{shape: stadium, label: "Dostosowanie Interfejsu"}
-   H1@{shape: stadium, label: "Powrót do języka domyślnego"} -.Extends.-> D1 
+   H1@{shape: stadium, label: "Powrót do języka domyślnego"} -.Extends.-> D1  
 ```
 
+### Diagram sekwencji WYŚWIETLENIE DOSTĘPNYCH BILETÓW
+```mermaid
+    sequenceDiagram
+        participant Użytkownik as Użytkownik
+        participant Biletomat as Biletomat
+        participant System as System biletowy
+
+        Użytkownik->>Biletomat: Rozpoczęcie interakcji
+        Biletomat->>Użytkownik: Uruchomienie ekranu powitalnego
+        Biletomat->>System: Żądanie listy dostępnych biletów
+        System->>System: Sprawdzenie aktualnych taryf (Include)
+        System-->>Biletomat: Przesłanie listy biletów
+        Biletomat->>Użytkownik: Wyświetlenie kategorii biletów
+        Użytkownik->>Biletomat: Wybór kategorii biletu
+        Biletomat->>Użytkownik: Wyświetlenie szczegółów biletów
+        Użytkownik->>Biletomat: Wybór biletu
+        alt Awaria sieci
+            Biletomat->>Użytkownik: Ostrzeżenie o braku danych (Extend)
+        end
+```
+### Diagram sekwencji OBSŁUGA WYBORU JĘZYKA
+```mermaid
+sequenceDiagram
+    participant Użytkownik as Użytkownik
+    participant Biletomat as Biletomat
+
+    Użytkownik->>Biletomat: Rozpoczęcie interakcji
+    Biletomat->>Użytkownik: Wyświetlenie opcji językowych 
+    Użytkownik->>Biletomat: Wybór preferowanego języka
+    Biletomat->>Biletomat: Rejestracja wyboru języka
+    Biletomat->>Biletomat: Dostosowanie interfejsu do wybranego języka
+    alt Brak aktywności użytkownika
+        Biletomat->>Biletomat: Powrót do języka domyślnego (Extend)
+    else Anulowanie procesu
+        Użytkownik->>Biletomat: Anulowanie transakcji (Include)
+    end
+
+```
