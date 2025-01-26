@@ -112,3 +112,39 @@ flowchart TD
     E2 -. Includes .-> F2
     D2 -. Includes .-> F2
 ```
+
+### Diagram sekwencji SYZBKI WYBÓR RODZAJU BILETU
+```mermaid
+sequenceDiagram
+    participant U as Użytkownik
+    participant B as Biletomat
+
+    U ->> B: Rozpoczęcie interakcji
+
+    alt Anulowanie
+        U ->> B: Anulowanie
+
+    else Kontynuacja
+        B ->> U: Wyświetlenie ekranu wyboru kategorii
+        U ->> B: Wybór kategorii
+        
+        alt Wyświetlenie podpowiedzi
+            U ->> B: Wyświetlenie podpowiedzi
+            B ->> U: Prezentacja podpowiedzi
+        end
+        
+        B ->> U: Wyświetlenie ekranu wyboru biletu
+        U ->> B: Wybiera bilet
+        
+        alt Wyświetlenie podpowiedzi
+            U ->> B: Wyświetlenie podpowiedzi
+            B ->> U: Prezentacja podpowiedzi
+        end
+
+        U ->> B: Sprawdzenie biletów
+        
+        B ->> U: Wyświetlenie podsumowania
+        U ->> B: Potwierdza wybór
+        B ->> U: 
+    end
+```
