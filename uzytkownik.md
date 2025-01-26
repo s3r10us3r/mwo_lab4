@@ -112,3 +112,29 @@ flowchart TD
     E2 -. Includes .-> F2
     D2 -. Includes .-> F2
 ```
+### Diagram sekwencji WYBÓR JĘZYKA
+```mermaid
+sequenceDiagram
+    participant U as Użytkownik
+    participant B as Biletomat
+
+    U ->> B: Rozpoczęcie interakcji
+    B ->> B: Domyślny język
+
+    B ->> U: Wyświetlenie opcji języka
+    alt Lista popularnych języków
+        B ->> U: Wyświetlenie listy popularnych języków
+    end
+
+    U ->> B: Wybór języka
+    alt Anulowanie transakcji
+        U ->> B: Anulowanie
+    else
+        B ->> U: Dostosowanie interfejsu
+        alt Anulowanie transakcji
+            U ->> B: Anulowanie
+        else
+            B ->> B: Zakończenie
+        end
+    end
+```
