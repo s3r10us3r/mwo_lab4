@@ -44,8 +44,8 @@ flowchart TD
    D1 --> E1@{shape: stadium, label: "Dostosowanie Interfejsu"}
    H1@{shape: stadium, label: "Powrót do języka domyślnego"} -.Extends.-> D1 
 ```
-### WYŚWIETLENIE PODSUMOWANIA TRANZAKCJI
-```
+### WYŚWIETLENIE PODSUMOWANIA TRANSAKCJI
+```mermaid
 flowchart TD
     Gromadzeniedanychotransakcj(["Gromadzenie danych o transakcji"]) -. include .-> WyświetleniePodsumowania(["Wyświetlenie podsumowania"])
     WyświetleniePodsumowania --> OczekiwanienaDecyzję(["Oczekiwanie na decyzję użytkownika"])
