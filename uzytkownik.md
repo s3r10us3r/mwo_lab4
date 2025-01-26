@@ -28,8 +28,19 @@ flowchart TD
     PodchodziDoBiletomatu -- include --> Anulowanie
     WyświetleniePodsumowania -- include --> Anulowanie
 ```
+### WYBÓR JĘZTKA
+```mermaid
+flowchart TD
+    Uzytkownik["Użytkownik"] --> PodchodziDoBiletomatu(["Rozpoczęcie interakcji"])
+    PodchodziDoBiletomatu --> WyswietlenieOpcjiJezyka(["Wyświetlenie opcji języka"])
+    WyswietlenieOpcjiJezyka --> WybórJęzyka(["Wybór języka"])
+    WybórJęzyka --> DostosowanieInterfejsu(["Dostosowanie Interfejsu"])
+    Anulowanietransakcji(["Anulowanie transakcji"]) -- extend --> WybórJęzyka & DostosowanieInterfejsu & WyswietlenieOpcjiJezyka
+    PodchodziDoBiletomatu -- include --> DomyslnyJezyk(["Domyślny język"])
+    WyswietlenieOpcjiJezyka -- extend --> ListaPop(["Lista popularnych języków"])
+```
 
-### Płatność za bilet
+### PŁATNOŚĆ ZA BILET
 ```mermaid
 flowchart TD
     Uzytkownik --- B@{shape: stadium, label: "Wybór metody płatności"}
@@ -43,7 +54,7 @@ flowchart TD
     C -.extends.-> G@{shape: stadium, label: "Obsługa błędów płatności"}
 ```
 
-### Sprawdzenie poprawności transakcji
+### SPRAWDZENIE POPRAWNOŚCI TRANZAKCJI
 ```mermaid
 flowchart TD
    A[Użytkownik] --> B@{shape: stadium, label: "Sprawdzenie poprawności transakcji"}
@@ -63,54 +74,41 @@ flowchart TD
    D -.Includes.-> F
 ```
 
-### Wspólny diagram
+### WSPÓLNY DIAGRAM
 ```mermaid
+---
+config:
+  layout: elk
+---
 flowchart TD
-    %% --- SZYBKI WYBÓR RODZAJU BILETU ---
-    Uzytkownik["Użytkownik"] --> PodchodziDoBiletomatu(["Rozpoczęcie interakcji"])
-    PodchodziDoBiletomatu --> WybieraKategorieBiletu(["Wybór kategorii"])
+    Uzytkownik["Użytkownik"] --> PodchodziDoBiletomatu(["Rozpoczęcie interakcji"]) & B2(["Sprawdzenie poprawności transakcji"])
+    PodchodziDoBiletomatu --> WybieraKategorieBiletu(["Wybór kategorii"]) & WyswietlenieOpcjiJezyka(["Wyświetlenie opcji języka"])
     WybieraKategorieBiletu --> WybieraBilet(["Wybiera bilet"])
     WybieraBilet --> WyświetleniePodsumowania(["Wyświetlenie podsumowania"])
-    WybieraKategorieBiletu -- include --> Anulowanie(["Anulowanie"])
-    WybieraBilet -- include --> Anulowanie & SprawdzenieBiletów(["Sprawdzenie biletów"])
-    WyświetleniePodsumowania --> PotwierdzaBilet(["Potwierdza wybór"])
-    PodchodziDoBiletomatu -- include --> Anulowanie
-    WyświetleniePodsumowania -- include --> Anulowanie
-
-    %% Wyświetlanie dodatkowych podpowiedzi (zależne od rozszerzenia)
-    WyświetleniePodpowiedzi(["Wyświetlenie podpowiedzi"]) -- extend --> WybieraKategorieBiletu
-    WyświetleniePodpowiedzi -- extend --> WybieraBilet
-
-    PotwierdzaBilet -- include --> Anulowanie
-
-    %% --- PRZEJŚCIE DO PŁATNOŚCI ZA BILET ---
-    Uzytkownik --> B@{shape: stadium, label: "Wybór metody płatności"}
-    B --> C@{shape: stadium, label: "Weryfikacja metody płatności"}
-    C --> D@{shape: stadium, label: "Realizacja płatności"}
-    D --> E@{shape: stadium, label: "Potwierdzenie transakcji"}
-    F@{shape: stadium, label: "Anulowanie transakcji"}
-
-    %% Uwzględnienie Anulowania i Obsługi błędów w procesie płatności
-    B -.includes.-> F
-    C -.includes.-> F
-    D -.includes.-> F
-    C -.extends.-> G@{shape: stadium, label: "Obsługa błędów płatności"}
-
-    
-   Uzytkownik --> B1@{shape: stadium, label: "Sprawdzenie poprawności transakcji"}
-   B1 --> E1@{shape: stadium, label: "Wybór biletu i płatności"}
-   E1 --> C1@{shape: stadium, label: "Wyświetlenie podsumowania"}
-   C1 --> D1@{shape: stadium, label: "Potwierdzenie lub cofnięcie"}
-   
-   
-
-   F1@{shape: stadium, label: "Anulowanie transakcji"}
-   G1@{shape: stadium, label: "Ostrzeżenie o błędzie"}
-
-   G1 -.Extends.-> B1
-   B1 -.Includes.-> F1
-   C1 -.Includes.-> F1
-   E1 -.Includes.-> F1
-   D1 -.Includes.-> F1
-
+    WybieraKategorieBiletu -. include .-> Anulowanie(["Anulowanie"])
+    WybieraBilet -. include .-> Anulowanie & SprawdzenieBiletów(["Sprawdzenie biletów"])
+    PotwierdzaBilet(["Potwierdza wybóru"]) -. include .-> Anulowanie
+    Wyświetleniepodpowiedzi(["Wyświetlenie podpowiedzi"]) -- extend --> WybieraKategorieBiletu & WybieraBilet
+    WyświetleniePodsumowania --> PotwierdzaBilet
+    PodchodziDoBiletomatu -. include .-> Anulowanie & DomyslnyJezyk(["Domyślny język"])
+    WyświetleniePodsumowania -. include .-> Anulowanie
+    WyswietlenieOpcjiJezyka --> WybórJęzyka(["Wybór języka"])
+    WybórJęzyka --> DostosowanieInterfejsu(["Dostosowanie Interfejsu"])
+    Anulowanietransakcji(["Anulowanie transakcji"]) -. extend .-> WybórJęzyka & DostosowanieInterfejsu & WyswietlenieOpcjiJezyka
+    WyswietlenieOpcjiJezyka -. extend .-> ListaPop(["Lista popularnych języków"])
+    PotwierdzaBilet --> C(["Weryfikacja metody płatności"])
+    C --> D(["Realizacja płatności"])
+    D --> E(["Potwierdzenie transakcji"])
+    B["B"] -. includes .-> F(["Anulowanie transakcji"])
+    C -. includes .-> F
+    D -. includes .-> F
+    C -. extends .-> G(["Obsługa błędów płatności"])
+    B2 --> E2(["Wybór biletu i płatności"])
+    E2 --> C2(["Wyświetlenie podsumowania"])
+    C2 --> D2(["Potwierdzenie lub cofnięcie"])
+    G2(["Ostrzeżenie o błędzie"]) -. Extends .-> B2
+    B2 -. Includes .-> F2(["Anulowanie transakcji"])
+    C2 -. Includes .-> F2
+    E2 -. Includes .-> F2
+    D2 -. Includes .-> F2
 ```
