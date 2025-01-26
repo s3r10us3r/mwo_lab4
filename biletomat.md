@@ -84,6 +84,8 @@ flowchart TD
    C1 --> D1@{shape: stadium, label: "Rejestracja wyboru języka"}
    D1 --> E1@{shape: stadium, label: "Dostosowanie Interfejsu"}
    H1@{shape: stadium, label: "Powrót do języka domyślnego"} -.Extends.-> D1  
+
+
 ```
 
 ### Diagram sekwencji WYŚWIETLENIE DOSTĘPNYCH BILETÓW
