@@ -44,6 +44,7 @@ flowchart TD
    D1 --> E1@{shape: stadium, label: "Dostosowanie Interfejsu"}
    H1@{shape: stadium, label: "Powrót do języka domyślnego"} -.Extends.-> D1 
 ```
+
 ### WYŚWIETLENIE PODSUMOWANIA TRANSAKCJI
 ```mermaid
 flowchart TD
@@ -84,5 +85,45 @@ flowchart TD
    C1 --> D1@{shape: stadium, label: "Rejestracja wyboru języka"}
    D1 --> E1@{shape: stadium, label: "Dostosowanie Interfejsu"}
    H1@{shape: stadium, label: "Powrót do języka domyślnego"} -.Extends.-> D1  
+
 ```
 
+### Diagram sekwencji WYŚWIETLENIE DOSTĘPNYCH BILETÓW
+```mermaid
+    sequenceDiagram
+        participant Użytkownik as Użytkownik
+        participant Biletomat as Biletomat
+        participant System as System biletowy
+
+        Użytkownik->>Biletomat: Rozpoczęcie interakcji
+        Biletomat->>Użytkownik: Uruchomienie ekranu powitalnego
+        Biletomat->>System: Żądanie listy dostępnych biletów
+        System->>System: Sprawdzenie aktualnych taryf (Include)
+        System-->>Biletomat: Przesłanie listy biletów
+        Biletomat->>Użytkownik: Wyświetlenie kategorii biletów
+        Użytkownik->>Biletomat: Wybór kategorii biletu
+        Biletomat->>Użytkownik: Wyświetlenie szczegółów biletów
+        Użytkownik->>Biletomat: Wybór biletu
+        alt Awaria sieci
+            Biletomat->>Użytkownik: Ostrzeżenie o braku danych (Extend)
+        end
+
+```
+### Diagram sekwencji OBSŁUGA WYBORU JĘZYKA
+```mermaid
+sequenceDiagram
+    participant Użytkownik as Użytkownik
+    participant Biletomat as Biletomat
+
+    Użytkownik->>Biletomat: Rozpoczęcie interakcji
+    Biletomat->>Użytkownik: Wyświetlenie opcji językowych 
+    Użytkownik->>Biletomat: Wybór preferowanego języka
+    Biletomat->>Biletomat: Rejestracja wyboru języka
+    Biletomat->>Biletomat: Dostosowanie interfejsu do wybranego języka
+    alt Brak aktywności użytkownika
+        Biletomat->>Biletomat: Powrót do języka domyślnego (Extend)
+    else Anulowanie procesu
+        Użytkownik->>Biletomat: Anulowanie transakcji (Include)
+    end
+
+```
