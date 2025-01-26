@@ -86,3 +86,23 @@ flowchart TD
    H1@{shape: stadium, label: "Powrót do języka domyślnego"} -.Extends.-> D1  
 ```
 
+### Diagram sekwencji
+```mermaid
+sequenceDiagram
+    participant Użytkownik as Użytkownik
+    participant Biletomat as Biletomat
+    participant System as System biletowy
+
+    Użytkownik->>Biletomat: Rozpoczęcie interakcji
+    Biletomat->>Użytkownik: Uruchomienie ekranu powitalnego
+    Biletomat->>System: Żądanie listy dostępnych biletów
+    System->>System: Sprawdzenie aktualnych taryf (Include)
+    System-->>Biletomat: Przesłanie listy biletów
+    Biletomat->>Użytkownik: Wyświetlenie kategorii biletów
+    Użytkownik->>Biletomat: Wybór kategorii biletu
+    Biletomat->>Użytkownik: Wyświetlenie szczegółów biletów
+    Użytkownik->>Biletomat: Wybór biletu
+    alt Awaria sieci
+        Biletomat->>Użytkownik: Ostrzeżenie o braku danych (Extend)
+    end
+```
