@@ -185,29 +185,29 @@ sequenceDiagram
 ```mermaid
 classDiagram
     class Uzytkownik {
-        +rozpocznijInterakcję()
-        +wybierzKategorie()
-        +wybierzBilet()
-        +potwierdzWybór()
-        +anuluj()
+        +void rozpocznijInterakcję()
+        +void wybierzKategorie()
+        +void wybierzBilet()
+        +void potwierdzWybór()
+        +void anuluj()
     }
 
     class Biletomat {
         +wybranyBilet:Bilet
         +listaDostęnychBiletów: Bilet[]
-        +wyswietlEkranWyboruKategorii()
-        +wyswietlEkranWyboruBiletu()
-        +wyswietlPodsumowanie()
-        +czekajNaWybórUzytkownika()
-        +pobierzListeBiletow()
-        +wyswietlPodpowiedzi()
+        + void wyswietlEkranWyboruKategorii()
+        + void wyswietlEkranWyboruBiletu()
+        + void wyswietlPodsumowanie()
+        + void czekajNaWybórUzytkownika()
+        +Bilet[] pobierzListeBiletow()
+        + void wyswietlPodpowiedzi()
     }
 
     class SystemBiletowy {
-        +listaBiletów: Bilet[]
-        +sprawdzTaryfy()
-        +zwróćListeBiletów()
-        +ostrzeżenieOBrauDanych()
+         +listaBiletów: Bilet[]
+        + void sprawdzTaryfy()
+        +Bilet[] zwróćListeBiletów()
+        + void ostrzeżenieOBrauDanych()
     }
 
     class Bilet {
@@ -221,6 +221,6 @@ classDiagram
     Biletomat --> SystemBiletowy : Żądanie listy biletów
     SystemBiletowy --> Biletomat : Zwrócenie listy biletów
     Biletomat --> Bilet : Wyświetlanie biletów
-SystemBiletowy --> Bilet: Sprawdzanie dostępności taryf
+    SystemBiletowy --> Bilet : Sprawdzanie dostępności taryf
 ```
  
