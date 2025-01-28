@@ -122,18 +122,21 @@ sequenceDiagram
 
     U ->> B: Rozpoczęcie interakcji
     B ->> B: Wybiera domyślny język
-    B -->> U: Wyświetla opcje językowe
+    B ->> B: Wyświetla opcje językowe
+    B -->> U: Oczekiwanie
     alt anulowanie
     U ->> B: Wybiera opcję anuluj
-    B -->> U: Wyświetla ekran początkowy
+    B ->> B: Wyświetla ekran początkowy
+    B -->> U: Oczekiwanie
     else
     opt wyświetlenie listy popularnych języków
     U ->> B: Wybiera opcję wyświetlenia listy popularnych języków
-    B -->> U: Wyświetla listę popularnych języków
+    B ->> B: Wyświetla listę popularnych języków
+    B -->> U: Oczekiwanie
     end
     U ->> B: Wybiera język
-    B ->> B: Dostosowuje interfejs
-    B -->> U:  Wyświetla zaktualizowany interfejs
+    B ->> B: Wyświetla zakutalizowany interfejs
+    B -->> U:  Oczekiwanie
     end
 ```
 
@@ -148,25 +151,32 @@ sequenceDiagram
     I ->> S: Żądanie listy dostępnych biletów
     S ->> S: Sprawdzenie aktualnych taryf
     S -->> I: Lista dostępnych biletów
-    I -->> U: Wyświetla ekran wyboru kategorii
+    I ->> I: Wyświetla ekran wyboru kategorii
+    I -->> U: Oczekiwanie
     alt Anulowanie
     U ->> I: Wybiera opcję anuluj
-    I -->> U: Wyświetla ekran początkowy
+    I ->> I: Wyświetla ekran początkowy
+    I -->> U: Oczekiwanie
     else
     alt wyświetlenie podpowiedzi
     U ->> I: Nie odpowiada
-    I -->> U: Wyświetla podpowiedź
+    I ->> I: Wyświetla podpowiedź
+    I -->> U: Oczekiwanie
     U ->> I: Wybiera przycisk zamknięcia podpowiedzi
-    I --> U: Zamyka podpowiedź
+    I ->> I: Zamyka podpowiedź
+    I ->> U: Oczekiwanie
     else
     U ->> I: Wybiera kategorię
-    I -->> U: Wyświetla ekran wyboru biletu
+    I ->> I: Wyświetla ekran wyboru biletu
+    I -->> U: Oczekiwanie
     U ->> I: Wybiera bilet
     I ->> S: Wysyła zapytanie o sprawdzenie biletów
     S -->> I: Akceptacja biletów
-    I -->> U: Wyświetla ekran podsumowania
+    I ->> I: Wyświetla ekran podsumowania
+    I -->> U: Oczekiwanie
     U ->> I: Potwierdza wybór
-    I -->> U: 
+    I ->> I: Akceptuje wybór
+    I -->> U: Oczekiwanie
     end
     end
 ```
