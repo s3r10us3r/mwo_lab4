@@ -144,35 +144,33 @@ sequenceDiagram
 ### Diagram sekwencji SZYBKI WYBÓR RODZAJU BILETU
 ```mermaid
 sequenceDiagram
-    participant U as Użytkownik
-    participant B as Biletomat
-
-    U ->> B: Rozpoczęcie interakcji
-
+    actor U as Użytkownik
+    participant I as Biletomat
+    participant S as System Biletowy
+    
+    U ->> I: Wybiera opcję szybkiego wyboru biletu
+    I ->> S: Żądanie listy dostępnych biletów
+    S ->> S: Sprawdzenie aktualnych taryf
+    S -->> I: Lista dostępnych biletów
+    I -->> U: Wyświetla ekran wyboru kategorii
     alt Anulowanie
-        U ->> B: Anulowanie
-
-    else Kontynuacja
-        B ->> U: Wyświetlenie ekranu wyboru kategorii
-        U ->> B: Wybór kategorii
-        
-        alt Wyświetlenie podpowiedzi
-            U ->> B: Wyświetlenie podpowiedzi
-            B ->> U: Prezentacja podpowiedzi
-        end
-        
-        B ->> U: Wyświetlenie ekranu wyboru biletu
-        U ->> B: Wybiera bilet
-        
-        alt Wyświetlenie podpowiedzi
-            U ->> B: Wyświetlenie podpowiedzi
-            B ->> U: Prezentacja podpowiedzi
-        end
-
-        U ->> B: Sprawdzenie biletów
-        
-        B ->> U: Wyświetlenie podsumowania
-        U ->> B: Potwierdza wybór
-        B ->> U: 
+    U ->> I: Wybiera opcję anuluj
+    I -->> U: Wyświetla ekran początkowy
+    else
+    alt wyświetlenie podpowiedzi
+    U ->> I: Nie odpowiada
+    I -->> U: Wyświetla podpowiedź
+    U ->> I: Wybiera przycisk zamknięcia podpowiedzi
+    I --> U: Zamyka podpowiedź
+    else
+    U ->> I: Wybiera kategorię
+    I -->> U: Wyświetla ekran wyboru biletu
+    U ->> I: Wybiera bilet
+    I ->> S: Wysyła zapytanie o sprawdzenie biletów
+    S -->> I: Akceptacja biletów
+    I -->> U: Wyświetla ekran podsumowania
+    U ->> I: Potwierdza wybór
+    I -->> U: 
+    end
     end
 ```
