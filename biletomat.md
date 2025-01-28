@@ -14,8 +14,7 @@ nadmiarowo, aby transakcja była zgodna z oczekiwaniami.
 ### WYŚWIETLENIE DOSTĘPNYCH BILETÓW
 ```mermaid
 flowchart TD
-    A[Biletomat] --> B@{shape: stadium, label: "Wyświetlenie dostępnych biletów"}
-    B --> H@{shape: stadium, label: "Uruchomienie ekranu powitalnego"}
+    A[Biletomat] --> H@{shape: stadium, label: "Uruchomienie ekranu powitalnego"}
     H --> C@{shape: stadium, label: "Pobranie listy biletów"}
     C --> D@{shape: stadium, label: "Wyświetlenie biletów"}
     D --> E@{shape: stadium, label: "Oczekiwanie na wybór użytkownika"}
