@@ -181,6 +181,49 @@ sequenceDiagram
     end
 ```
 
+### Diagram klas SZYBKI WYBÓR RODZAJU BILETU
+```mermaid
+classDiagram
+    class Uzytkownik {
+        +void rozpocznijInterakcję()
+        +void wybierzKategorie()
+        +void wybierzBilet()
+        +void potwierdzWybór()
+        +void anuluj()
+    }
+
+    class Biletomat {
+        +wybranyBilet:Bilet
+        +listaDostęnychBiletów: Bilet[]
+        + void wyswietlEkranWyboruKategorii()
+        + void wyswietlEkranWyboruBiletu()
+        + void wyswietlPodsumowanie()
+        + void czekajNaWybórUzytkownika()
+        +Bilet[] pobierzListeBiletow()
+        + void wyswietlPodpowiedzi()
+    }
+
+    class SystemBiletowy {
+         +listaBiletów: Bilet[]
+        + void sprawdzTaryfy()
+        +Bilet[] zwróćListeBiletów()
+        + void ostrzeżenieOBrauDanych()
+    }
+
+    class Bilet {
+        +nazwa: string
+        +cena: float
+        +kategoria: string
+        +dostępność: boolean
+    }
+
+    Uzytkownik --> Biletomat : Interakcje
+    Biletomat --> SystemBiletowy : Żądanie listy biletów
+    SystemBiletowy --> Biletomat : Zwrócenie listy biletów
+    Biletomat --> Bilet : Wyświetlanie biletów
+    SystemBiletowy --> Bilet : Sprawdzanie dostępności taryf
+```
+ 
 ### Diagram klas dla WYBÓR JĘZYKA
 ```mermaid
 classDiagram
@@ -208,3 +251,4 @@ classDiagram
     Biletomat --> Jezyk : przegląda
     Jezyk --> Biletomat : zwraca język
 ```
+
