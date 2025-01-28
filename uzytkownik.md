@@ -180,3 +180,47 @@ sequenceDiagram
     end
     end
 ```
+
+### Diagram klas SZYBKI WYBÓR RODZAJU BILETU
+```mermaid
+classDiagram
+    class Uzytkownik {
+        +rozpocznijInterakcję()
+        +wybierzKategorie()
+        +wybierzBilet()
+        +potwierdzWybór()
+        +anuluj()
+    }
+
+    class Biletomat {
+        +wybranyBilet:Bilet
+        +listaDostęnychBiletów: Bilet[]
+        +wyswietlEkranWyboruKategorii()
+        +wyswietlEkranWyboruBiletu()
+        +wyswietlPodsumowanie()
+        +czekajNaWybórUzytkownika()
+        +pobierzListeBiletow()
+        +wyswietlPodpowiedzi()
+    }
+
+    class SystemBiletowy {
+        +listaBiletów: Bilet[]
+        +sprawdzTaryfy()
+        +zwróćListeBiletów()
+        +ostrzeżenieOBrauDanych()
+    }
+
+    class Bilet {
+        +nazwa: string
+        +cena: float
+        +kategoria: string
+        +dostępność: boolean
+    }
+
+    Uzytkownik --> Biletomat : Interakcje
+    Biletomat --> SystemBiletowy : Żądanie listy biletów
+    SystemBiletowy --> Biletomat : Zwrócenie listy biletów
+    Biletomat --> Bilet : Wyświetlanie biletów
+SystemBiletowy --> Bilet: Sprawdzanie dostępności taryf
+```
+ 
