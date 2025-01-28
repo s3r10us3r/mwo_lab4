@@ -95,14 +95,16 @@ flowchart TD
         participant System as System biletowy
 
         Użytkownik->>Biletomat: Rozpoczęcie interakcji
-        Biletomat-->>Użytkownik: Uruchomienie ekranu powitalnego
+        Biletomat->>Biletomat: Uruchomienie ekranu powitalnego
         Biletomat->>System: Żądanie listy dostępnych biletów
         System->>System: Sprawdzenie aktualnych taryf (Include)
         System-->>Biletomat: Przesłanie listy biletów
-        Biletomat-->>Użytkownik: Wyświetlenie kategorii biletów
-        Użytkownik->>Biletomat: Wybór kategorii biletu
-        Biletomat-->>Użytkownik: Wyświetlenie szczegółów biletów
-        Użytkownik->>Biletomat: Wybór biletu
+        Biletomat->>Biletomat: Wyświetlenie kategorii biletów
+        Biletomat->>Użytkownik: Oczekiwanie na wybór kategorii biletów
+        Użytkownik-->>Biletomat: Wybór kategorii biletu
+        Biletomat->>Biletomat: Wyświetlenie szczegółów biletów
+        Biletomat->>Użytkownik: Oczekiwnaie na wybór biletu
+        Użytkownik-->>Biletomat: Wybór biletu
         alt Awaria sieci
             Biletomat->>Użytkownik: Ostrzeżenie o braku danych (Extend)
         end
@@ -114,8 +116,9 @@ sequenceDiagram
     participant Biletomat as Biletomat
 
     Użytkownik->>Biletomat: Rozpoczęcie interakcji
-    Biletomat-->>Użytkownik: Wyświetlenie opcji językowych 
-    Użytkownik->>Biletomat: Wybór preferowanego języka
+    Biletomat->>Biletomat: Wyświetlenie opcji językowych
+    Biletomat->>Użytkownik:Oczekiwnie na wybór języka
+    Użytkownik-->>Biletomat: Wybór preferowanego języka
     Biletomat->>Biletomat: Rejestracja wyboru języka
     Biletomat->>Biletomat: Dostosowanie interfejsu do wybranego języka
     alt Brak aktywności użytkownika
