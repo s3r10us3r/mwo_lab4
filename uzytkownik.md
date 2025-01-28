@@ -117,27 +117,23 @@ flowchart TD
 ### Diagram sekwencji WYBÓR JĘZYKA
 ```mermaid
 sequenceDiagram
-    participant U as Użytkownik
+    actor U as Użytkownik
     participant B as Biletomat
 
     U ->> B: Rozpoczęcie interakcji
-    B ->> B: Domyślny język
-
-    B ->> U: Wyświetlenie opcji języka
-    alt Lista popularnych języków
-        B ->> U: Wyświetlenie listy popularnych języków
-    end
-
-    U ->> B: Wybór języka
-    alt Anulowanie transakcji
-        U ->> B: Anulowanie
+    B ->> B: Wybiera domyślny język
+    B -->> U: Wyświetla opcje językowe
+    alt anulowanie
+    U ->> B: Wybiera opcję anuluj
+    B -->> U: Wyświetla ekran początkowy
     else
-        B ->> U: Dostosowanie interfejsu
-        alt Anulowanie transakcji
-            U ->> B: Anulowanie
-        else
-            B ->> B: Zakończenie
-        end
+    opt wyświetlenie listy popularnych języków
+    U ->> B: Wybiera opcję wyświetlenia listy popularnych języków
+    B -->> U: Wyświetla listę popularnych języków
+    end
+    U ->> B: Wybiera język
+    B ->> B: Dostosowuje interfejs
+    B -->> U:  Wyświetla zaktualizowany interfejs
     end
 ```
 
