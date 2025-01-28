@@ -146,16 +146,17 @@ sequenceDiagram
 sequenceDiagram
     actor U as Użytkownik
     participant I as Biletomat
-    participant S as Serwer
+    participant S as System Biletowy
     
+    U ->> I: Wybiera opcję szybkiego wyboru biletu
+    I ->> S: Żądanie listy dostępnych biletów
+    S ->> S: Sprawdzenie aktualnych taryf
+    S -->> I: Lista dostępnych biletów
+    I -->> U: Wyświetla ekran wyboru kategorii
     alt Anulowanie
     U ->> I: Wybiera opcję anuluj
     I -->> U: Wyświetla ekran początkowy
     else
-    U ->> I: Wybiera opcję szybkiego wyboru biletu
-    I ->> S: Wysyła zapytanie o dostępne kategorie
-    S -->> I: Dostępne kategorie
-    I -->> U: Wyświetla ekran wyboru kategorii
     alt wyświetlenie podpowiedzi
     U ->> I: Nie odpowiada
     I -->> U: Wyświetla podpowiedź
@@ -163,8 +164,6 @@ sequenceDiagram
     I --> U: Zamyka podpowiedź
     else
     U ->> I: Wybiera kategorię
-    I ->> S: Wysyła zapytanie o dostępne bilety
-    S -->> I: Lista dostępnych biletów
     I -->> U: Wyświetla ekran wyboru biletu
     U ->> I: Wybiera bilet
     I ->> S: Wysyła zapytanie o sprawdzenie biletów
