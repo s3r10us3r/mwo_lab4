@@ -126,5 +126,51 @@ sequenceDiagram
     else Anulowanie procesu
         Użytkownik->>Biletomat: Anulowanie transakcji (Include)
     end
+```
 
+### Diagram klas OBSŁUGA WYBORU JĘZYKA
+```mermaid
+classDiagram
+    WelcomeView --> WelcomeController : Wywołuje
+    ChooseLanguageView --> ChooseLanguageController : Wywołuje
+    WelcomeController --> ChooseLanguageController : Wywołuje
+    LocalData --o LanguagePack
+    ChooseLanguageController --> SettingsSingleton : Ustawia dane
+    WelcomeController --> LocalData : Pobiera dane
+
+    class LocalData {
+        -List Languages
+        +List getLanguages()
+    }
+
+    class LanguagePack {
+        -String Name
+        -Map Content
+        +String getContent(string key)
+        +String getName()
+    }
+
+    class SettingsSingleton {
+        -LanguagePack chosenLanguage
+        +void setLanguage(LanguagePack language)
+        +LanguagePack getLanguage()
+    }
+
+    class WelcomeView {
+        +void showLanguageOptions()
+    }
+
+    class WelcomeController {
+        +void chooseLanguage()
+    }
+
+    class ChooseLanguageView {
+        +void chooseLanguage(LanguagePack languagePack)
+        +void cancel()
+    }
+
+    class ChooseLanguageController {
+        +void chooseLanguage(LanguagePack languagePack)
+        +void backToDefaultLanguage(LanguagePack languagePack)
+    }
 ```
