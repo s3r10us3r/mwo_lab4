@@ -185,28 +185,26 @@ sequenceDiagram
 ```mermaid
 classDiagram
     class Uzytkownik {
-        +rozpocznijInterakcje()
-        +wybierzJęzyk()
-        +anuluj()
-        +wybierzListęPopularnychJęzyków()
+        +void wybierzJęzyk()
+        +void anuluj()
+        +string[] wybierzListęPopularnychJęzyków()
     }
 
     class Biletomat {
-        
-        +aktualnyJęzyk: Jezyk
-        +czekajNaInterakcje()
-        +wyswietlOpcjeJęzykowe()
-        +wyswietlEkranPoczatkowy()
-        +wyswietlListyJęzyków()
-        +wyswietlZaktualizowanyInterfejs()
+        +Jezyk aktualnyJęzyk
+        +void czekajNaInterakcje()
+        +void wyswietlOpcjeJęzykowe()
+        +void wyswietlEkranPoczatkowy()
+        +void wyswietlListyJęzyków()
+        +void wyswietlZaktualizowanyInterfejs()
     }
 
     class Jezyk {
-        +nazwa: string
-        +zmieńJezyk()
+        +string nazwa
+        +Jezyk zwróćJezyk()
     }
 
-    Uzytkownik --> Biletomat : Interakcje
-    Biletomat --> Jezyk : Wybór Języka
-    Jezyk --> Biletomat : Zmiana Języka
+    Uzytkownik --> Biletomat : interakcje
+    Biletomat --> Jezyk : przegląda
+    Jezyk --> Biletomat : zwraca język
 ```
