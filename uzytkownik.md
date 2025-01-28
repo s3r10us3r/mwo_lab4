@@ -180,3 +180,33 @@ sequenceDiagram
     end
     end
 ```
+
+### Diagram klas dla WYBÓR JĘZYKA
+```mermaid
+classDiagram
+    class Uzytkownik {
+        +rozpocznijInterakcje()
+        +wybierzJęzyk()
+        +anuluj()
+        +wybierzListęPopularnychJęzyków()
+    }
+
+    class Biletomat {
+        
+        +aktualnyJęzyk: Jezyk
+        +czekajNaInterakcje()
+        +wyswietlOpcjeJęzykowe()
+        +wyswietlEkranPoczatkowy()
+        +wyswietlListyJęzyków()
+        +wyswietlZaktualizowanyInterfejs()
+    }
+
+    class Jezyk {
+        +nazwa: string
+        +zmieńJezyk()
+    }
+
+    Uzytkownik --> Biletomat : Interakcje
+    Biletomat --> Jezyk : Wybór Języka
+    Jezyk --> Biletomat : Zmiana Języka
+```
