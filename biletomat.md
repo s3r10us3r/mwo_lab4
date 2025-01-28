@@ -174,3 +174,58 @@ classDiagram
         +void backToDefaultLanguage(LanguagePack languagePack)
     }
 ```
+
+### Diagram klas WYŚWIETLENIE DOSTĘPNYCH BILETÓW
+```mermaid
+classDiagram
+    WelcomeView --> WelcomeController : wywołuje
+    WelcomeController --> TicketCategoriesController : wywołuje
+    TicketCategoriesView --> TicketCategoriesController : wywołuje
+    TicketCategoriesController --> TicketDetailsController : wywołuje
+    TicketDetailsView --> TicketDetailsController : wywołuje
+    TicketDetailsController --> Database : pobiera dane
+    Database --o Ticket : przechowuje
+
+    class Ticket {
+        +String name
+        +double price
+        +string category
+    }
+
+
+    class WelcomeView {
+        +void show()
+        +void chooseTicket()
+    }
+
+    class TicketCategoriesView {
+        -List<string> categories
+        +void show()
+        +void chooseCategory(string category)
+    }
+
+    class TicketDetailsView {
+        +void chooseTicket(Ticket ticket)
+        +void show()
+    }
+
+    class WelcomeController {
+        +void openTicketCategories()
+    }
+
+    class TicketCategoriesController {
+        +void chooseCategory(string category)
+    }
+
+    class TicketDetailsController {
+        +List<Ticket> getTickets()
+        +List<String> getCategories()
+    }
+
+    class Database {
+        -List<Ticket> availableTickets
+        -List<String> ticketCategories
+        +List<Ticket> downloadTickets()
+        +List<String> downloadCategories()
+    }
+```
